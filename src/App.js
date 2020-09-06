@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
+import { Button } from '@material-ui/core';
 import './App.css';
+
 
 // In REACT everything is Component based
 // This "App" component - which is referring to the entire component on the page - returns some HTML
@@ -43,7 +45,12 @@ function App() {
 
       <form>
       <input value={input} onChange={event => setInput(event.target.value)}/>
-      <button type="submit" onClick={addTodo}>Add Todo</button>
+      {/*This a material ui/css google styles button. Been able to get this style by running the command
+      **| npm install @material-ui/core |** in terminal and then importing the library into the file*/}
+      <Button type="submit" onClick={addTodo} variant="contained" color="primary">
+        Add Todo
+      </Button>
+      {/* <button type="submit" onClick={addTodo}></button> */}
       </form>
       <ul>
         
