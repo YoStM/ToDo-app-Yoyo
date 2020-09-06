@@ -1,7 +1,9 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import Todo from './Todo';
 import { Button, FormControl, Input, InputLabel } from '@material-ui/core';
 import './App.css';
+import db from './firebase';
+import firebase from 'firebase';
 
 
 // In REACT everything is Component based
@@ -17,21 +19,38 @@ function App() {
   // 2- we create a constant
   // In this instance we create an array of TO DOs and initiate it empty
   // This will be a little record - short term memory - of what the todos are
-  const [todos, setTodos] = useState(['Take dogs for a walk', 'Take the rubbish out', 'Do the homeworks']);
+  const [todos, setTodos] = useState([]);
 
   // a hook
   const [input, setInput] = useState('');
-  console.log(input);
+  //console.log(input);
+
+  //When the app loads, we need to listen to the database and fetch new todos as they get added/removed
+  useEffect(() => {
+    // This is what gets triggered when the app.js loads
+    //This piece of code is doing all of the listening. It's alwayls going to listen wether or not there is a change in database
+    db.collection('todos').onSnapshot(snapshot => {
+      //console.log(snapshot.docs.map(doc => doc.data().text));
+      setTodos(snapshot.docs.map(doc => doc.data().text))
+    })
+  }, []);
+  
 
   // add todo function
   const addTodo = (event) => {
 
     event.preventDefault();
       //this will fire off when we click the button
-      console.log('I am clicking ');
+      //console.log('I am clicking ');
+      
+      db.collection('todos').add({
+        text: input,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      })
+      
       // Pushing via the "spread" the last input at the end of the todos array
       // We append the last input to the todos array
-      setTodos([...todos, input]);
+      // setTodos([...todos, input]);
       // Resets the input field
       setInput('');
   }
