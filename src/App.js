@@ -29,9 +29,10 @@ function App() {
   useEffect(() => {
     // This is what gets triggered when the app.js loads
     //This piece of code is doing all of the listening. It's alwayls going to listen wether or not there is a change in database
-    db.collection('todos').onSnapshot(snapshot => {
+    db.collection('todos').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
       //console.log(snapshot.docs.map(doc => doc.data().text));
-      setTodos(snapshot.docs.map(doc => doc.data().text))
+      //setTodos(snapshot.docs.map(doc => doc.data().text))
+      setTodos(snapshot.docs.map(doc => ({id: doc.id, text: doc.data().text})))
     })
   }, []);
   
@@ -61,7 +62,7 @@ function App() {
   // ))}
   return (
     <div className="App">
-      <h1>ToDo-YoYo {22+11}</h1>
+      <h1>ToDo-YoStM</h1>
 
       <form>
       {/*<input value={input} onChange={event => setInput(event.target.value)}/>*/}
