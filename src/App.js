@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import { Button } from '@material-ui/core';
+import Todo from './Todo';
+import { Button, FormControl, Input, InputLabel } from '@material-ui/core';
 import './App.css';
 
 
@@ -41,21 +42,29 @@ function App() {
   // ))}
   return (
     <div className="App">
-      <h1>Hello World! {22+11}</h1>
+      <h1>ToDo-YoYo {22+11}</h1>
 
       <form>
-      <input value={input} onChange={event => setInput(event.target.value)}/>
+      {/*<input value={input} onChange={event => setInput(event.target.value)}/>*/}
+      {/* **|<FormControl>|** imported from material ui again
+      Improving the visual over the previous **|<input/>|** above*/}
+      <FormControl>
+        <InputLabel>Write a todo</InputLabel>
+        <Input value={input} onChange={event => setInput(event.target.value)}/>
+      </FormControl>
       {/*This a material ui/css google styles button. Been able to get this style by running the command
-      **| npm install @material-ui/core |** in terminal and then importing the library into the file*/}
-      <Button type="submit" onClick={addTodo} variant="contained" color="primary">
+      **| npm install @material-ui/core |** in terminal and then importing the library into the file
+      **| disable={!input} |** prevent the button from inserting a blank input.*/}
+      <Button disabled={!input} type="submit" onClick={addTodo} variant="contained" color="primary">
         Add Todo
       </Button>
       {/* <button type="submit" onClick={addTodo}></button> */}
       </form>
       <ul>
-        
+        {/*This is rendering a list of ToDos*/}
         {todos.map(todo => (
-          <li>{todo}</li>
+          <Todo text={todo} />
+          //<li>{todo}</li>
         ))}
         
       </ul>
