@@ -1,3 +1,16 @@
 .clickable:hover {
     cursor: pointer;
 }
+
+.container {
+    background-color: #CEE3F6;
+    border: solid 2px #CEE3F6;
+    border-bottom-left-radius: 55px;
+    border-top-left-radius: 55px;
+    border-top-right-radius: 55px;
+    width: 250px;
+}
+
+.container text {
+    text-align: start;
+}

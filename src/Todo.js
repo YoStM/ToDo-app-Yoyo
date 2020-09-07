@@ -62,17 +62,19 @@ function Todo(props) {
             </div>
         </Modal>
         
-        <List>  
+        <List>
+            <div className='container'>
             <ListItem>
                 <ListItemAvatar>
                     
                 </ListItemAvatar>
-                <ListItemText primary={props.text.text} secondary="You didn't set a deadline for this one." />
+                <ListItemText primary={props.text.text} secondary="You didn't set a deadline for this one." className='text'/>
             </ListItem>
             <EditIcon onClick={e => setOpen(true)} className='clickable'/>
             {/*we need to add a button for when the todo is done, we can delete it
             we will loop through the array 'todos' and get the todo ID to be deleted*/}
             <HighlightOffIcon onClick={event => db.collection('todos').doc(props.text.id).delete()} className='clickable'/>
+            </div>
         </List>
         </>
     )
